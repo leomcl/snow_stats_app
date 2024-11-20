@@ -13,6 +13,12 @@ import '../../domain/usecases/delete_stock_usecase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../presentation/blocs/stock/stock_bloc.dart';
+import '../../presentation/blocs/dividends/dividends_bloc.dart';
+import 'dart:async';
+import 'package:http/http.dart' as http;
+import '../../domain/repositories/dividend_repository.dart';
+import '../../data/repositories/dividend_repository_impl.dart';
+import '../../domain/usecases/get_previous_year_dividends.dart';
 
 final sl = GetIt.instance;
 
@@ -20,12 +26,21 @@ Future<void> init() async {
   // Blocs
   sl.registerFactory(() => MessageBloc(sl()));
   sl.registerFactory(() => AuthBloc());
+  sl.registerFactory(
+    () => DividendsBloc(
+      getPreviousYearDividends: sl(),
+    ),
+  );
 
   // Use cases
   sl.registerLazySingleton(() => GetMessageUseCase(sl()));
+  sl.registerLazySingleton(() => GetPreviousYearDividends(sl()));
 
   // Repositories
   sl.registerLazySingleton<MessageRepository>(() => MessageRepositoryImpl());
+  sl.registerLazySingleton<DividendRepository>(
+    () => DividendRepositoryImpl(client: sl()),
+  );
 
   // Data sources
   sl.registerLazySingleton<StockRemoteDataSource>(
@@ -50,4 +65,7 @@ Future<void> init() async {
       deleteStockUseCase: sl(),
     ),
   );
+
+  // External
+  sl.registerLazySingleton(() => http.Client());
 } 

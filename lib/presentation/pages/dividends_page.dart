@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/dividends/dividends_bloc.dart';
 import '../widgets/dividends_list_view.dart';
 
-class DividendPage extends StatelessWidget {
-  const DividendPage({super.key});
+class DividendsPage extends StatelessWidget {
+  const DividendsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

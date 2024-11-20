@@ -6,8 +6,8 @@ import 'presentation/blocs/message/message_bloc.dart';
 import 'presentation/pages/home_page.dart';
 import 'presentation/blocs/auth/auth_bloc.dart';
 import 'firebase_options.dart';
-import 'presentation/pages/dividend_page.dart';
 import 'presentation/blocs/stock/stock_bloc.dart';
+import 'presentation/blocs/dividends/dividends_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,13 +37,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.sl<StockBloc>(),
         ),
+        BlocProvider<DividendsBloc>(
+          create: (context) => di.sl<DividendsBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const HomePage(),
-        routes: {
-          '/dividends': (context) => const DividendPage(),
-        },
       ),
     );
   }
