@@ -5,6 +5,7 @@ import '../blocs/auth/auth_bloc.dart';
 import 'login_page.dart';
 import '../widgets/stock_list_widget.dart';
 import '../blocs/stock/stock_bloc.dart';
+import '../blocs/dividends/dividends_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,6 +45,18 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedIndex = index;
     });
+    
+    if (index == 1) {
+      final stockState = context.read<StockBloc>().state;
+      final dividendsBloc = context.read<DividendsBloc>();
+      
+      if (stockState is StockLoaded && 
+          dividendsBloc.lastProcessedStockCount != stockState.stocks.length) {
+        dividendsBloc.add(
+          CalculateMetrics(stockState.stocks),
+        );
+      }
+    }
   }
 
   Widget _getPage() {

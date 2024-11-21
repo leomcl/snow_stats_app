@@ -11,6 +11,7 @@ part 'dividends_state.dart';
 class DividendsBloc extends Bloc<DividendsEvent, DividendsState> {
   final GetPreviousYearDividends getPreviousYearDividends;
   final CalculateDividendMetricsUseCase calculateMetricsUseCase;
+  int lastProcessedStockCount = 0;
 
   DividendsBloc({
     required this.getPreviousYearDividends,
@@ -52,7 +53,10 @@ class DividendsBloc extends Bloc<DividendsEvent, DividendsState> {
     
     result.fold(
       (failure) => emit(DividendsError(failure.message)),
-      (metrics) => emit(DividendsMetricsLoaded(metrics: metrics)),
+      (metrics) {
+        lastProcessedStockCount = event.stocks.length;
+        emit(DividendsMetricsLoaded(metrics: metrics));
+      },
     );
   }
 } 
