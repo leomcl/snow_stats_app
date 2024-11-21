@@ -20,4 +20,13 @@ final class DividendsLoaded extends DividendsState {
 final class DividendsError extends DividendsState {
   final String message;
   const DividendsError(this.message);
+}
+
+final class DividendsMetricsLoaded extends DividendsState {
+  final DividendMetrics metrics;
+
+  const DividendsMetricsLoaded({required this.metrics});
+
+  @override
+  List<Object?> get props => [metrics];
 } 

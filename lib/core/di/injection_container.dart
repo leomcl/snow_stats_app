@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 import '../../domain/repositories/dividend_repository.dart';
 import '../../data/repositories/dividend_repository_impl.dart';
 import '../../domain/usecases/get_previous_year_dividends.dart';
+import '../../domain/usecases/calculate_dividend_metrics_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -29,12 +30,14 @@ Future<void> init() async {
   sl.registerFactory(
     () => DividendsBloc(
       getPreviousYearDividends: sl(),
+      calculateMetricsUseCase: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => GetMessageUseCase(sl()));
   sl.registerLazySingleton(() => GetPreviousYearDividends(sl()));
+  sl.registerLazySingleton(() => CalculateDividendMetricsUseCase(sl()));
 
   // Repositories
   sl.registerLazySingleton<MessageRepository>(() => MessageRepositoryImpl());

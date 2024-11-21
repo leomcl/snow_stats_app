@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/dividends/dividends_bloc.dart';
 import '../widgets/dividends_list_view.dart';
+import '../widgets/monthly_dividends_chart.dart';
 
 class DividendPage extends StatelessWidget {
   const DividendPage({super.key});
@@ -20,10 +21,10 @@ class DividendPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     context.read<DividendsBloc>().add(
-                      FetchDividends(['AAPL', 'MSFT']),
+                      const CalculateMetrics(['AAPL', 'MSFT']),
                     );
                   },
-                  child: const Text('Fetch Dividends'),
+                  child: const Text('Load Dividend Metrics'),
                 ),
               );
             
@@ -38,6 +39,41 @@ class DividendPage extends StatelessWidget {
             case DividendsError(:final message):
               return Center(
                 child: Text('Error: $message'),
+              );
+
+            case DividendsMetricsLoaded(:final metrics):
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Card(
+                      margin: const EdgeInsets.all(16),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Total Yearly Dividends: \$${metrics.totalYearlyDividends.toStringAsFixed(2)}',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Highest Paying Month: ${metrics.highestPayingMonth}',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              'Amount: \$${metrics.highestMonthlyAmount.toStringAsFixed(2)}',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    MonthlyDividendsChart(
+                      monthlyDividends: metrics.monthlyDividends,
+                    ),
+                  ],
+                ),
               );
           }
         },

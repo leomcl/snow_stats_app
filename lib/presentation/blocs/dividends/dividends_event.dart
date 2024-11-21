@@ -7,4 +7,9 @@ sealed class DividendsEvent {
 final class FetchDividends extends DividendsEvent {
   final List<String> symbols;
   const FetchDividends(this.symbols);
+}
+
+final class CalculateMetrics extends DividendsEvent {
+  final List<String> symbols;
+  const CalculateMetrics(this.symbols);
 } 

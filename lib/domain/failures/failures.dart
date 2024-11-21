@@ -9,4 +9,8 @@ class ServerFailure extends Failure {
 
 class NetworkFailure extends Failure {
   const NetworkFailure(String message) : super(message);
+}
+
+class CalculationFailure extends Failure {
+  const CalculationFailure(String message) : super(message);
 } 
