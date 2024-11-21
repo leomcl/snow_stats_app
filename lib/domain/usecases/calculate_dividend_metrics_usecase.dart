@@ -23,11 +23,17 @@ class CalculateDividendMetricsUseCase {
           
           // Calculate monthly totals
           dividendResponse.dividends.forEach((symbol, stockDividends) {
+            // Get number of shares for this symbol
+            final shares = sharesByTicker[symbol] ?? 0.0;
+            
             for (var dividend in stockDividends.dividends) {
               // Parse string date to DateTime
               final dateTime = DateTime.parse(dividend.date);
               int monthIndex = dateTime.month - 1;
-              monthlyTotals[monthIndex] += dividend.amount;
+              
+              // Multiply dividend amount by number of shares
+              final totalDividend = dividend.amount * shares;
+              monthlyTotals[monthIndex] += totalDividend;
             }
           });
 
