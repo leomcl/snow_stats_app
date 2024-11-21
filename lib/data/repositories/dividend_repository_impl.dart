@@ -19,7 +19,7 @@ class DividendRepositoryImpl implements DividendRepository {
       List<String> symbols) async {
     try {
       final response = await client.get(
-        Uri.parse('$baseUrl/previous-year-dividends/${symbols.join(',')}'),
+        Uri.parse('$baseUrl/forecasted-dividends/${symbols.join(',')}'),
       );
 
       if (response.statusCode == 200) {
