@@ -1,15 +1,25 @@
 part of 'dividends_bloc.dart';
 
-sealed class DividendsEvent {
+abstract class DividendsEvent {
   const DividendsEvent();
+
+  List<Object> get props => [];
 }
 
-final class FetchDividends extends DividendsEvent {
-  final List<String> symbols;
-  const FetchDividends(this.symbols);
+class FetchDividends extends DividendsEvent {
+  final List<Stock> stocks;
+
+  const FetchDividends(this.stocks);
+
+  @override
+  List<Object> get props => [stocks];
 }
 
-final class CalculateMetrics extends DividendsEvent {
-  final List<String> symbols;
-  const CalculateMetrics(this.symbols);
+class CalculateMetrics extends DividendsEvent {
+  final List<Stock> stocks;
+
+  const CalculateMetrics(this.stocks);
+
+  @override
+  List<Object> get props => [stocks];
 } 

@@ -3,6 +3,7 @@ import '../../../domain/usecases/get_previous_year_dividends.dart';
 import '../../../data/models/dividend_response.dart';
 import '../../../domain/usecases/calculate_dividend_metrics_usecase.dart';
 import '../../../domain/models/dividend_metrics.dart';
+import '../../../domain/entities/stock.dart';
 
 part 'dividends_event.dart';
 part 'dividends_state.dart';
@@ -25,7 +26,9 @@ class DividendsBloc extends Bloc<DividendsEvent, DividendsState> {
   ) async {
     emit(const DividendsLoading());
 
-    final result = await getPreviousYearDividends(event.symbols);
+    final tickers = event.stocks.map((stock) => stock.ticker).toList();
+    
+    final result = await getPreviousYearDividends(tickers);
 
     result.fold(
       (failure) => emit(DividendsError(failure.message)),
@@ -37,7 +40,15 @@ class DividendsBloc extends Bloc<DividendsEvent, DividendsState> {
     CalculateMetrics event,
     Emitter<DividendsState> emit,
   ) async {
-    final result = await calculateMetricsUseCase.execute(event.symbols);
+    final stocksMap = {
+      for (var stock in event.stocks) 
+        stock.ticker: stock.shares.toDouble()
+    };
+    
+    final result = await calculateMetricsUseCase.execute(
+      event.stocks.map((stock) => stock.ticker).toList(),
+      sharesByTicker: stocksMap,
+    );
     
     result.fold(
       (failure) => emit(DividendsError(failure.message)),

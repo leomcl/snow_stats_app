@@ -8,7 +8,10 @@ class CalculateDividendMetricsUseCase {
 
   CalculateDividendMetricsUseCase(this.repository);
 
-  Future<Either<Failure, DividendMetrics>> execute(List<String> symbols) async {
+  Future<Either<Failure, DividendMetrics>> execute(
+    List<String> symbols, {
+    required Map<String, double> sharesByTicker,
+  }) async {
     final dividendResult = await repository.getPreviousYearDividends(symbols);
 
     return dividendResult.fold(
