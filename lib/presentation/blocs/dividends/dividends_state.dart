@@ -27,6 +27,5 @@ final class DividendsMetricsLoaded extends DividendsState {
 
   const DividendsMetricsLoaded({required this.metrics});
 
-  @override
   List<Object?> get props => [metrics];
 } 
