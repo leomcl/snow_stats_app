@@ -43,34 +43,63 @@ class DividendPage extends StatelessWidget {
 
             case DividendsMetricsLoaded(:final metrics):
               return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 child: Column(
                   children: [
                     Card(
-                      margin: const EdgeInsets.all(16),
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Total Yearly Dividends: \$${metrics.totalYearlyDividends.toStringAsFixed(2)}',
-                              style: Theme.of(context).textTheme.titleLarge,
+                            Row(
+                              children: [
+                                Icon(Icons.attach_money,
+                                    color: Theme.of(context).primaryColor),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    'Total Yearly Dividends: \$${metrics.totalYearlyDividends.toStringAsFixed(2)}',
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Highest Paying Month: ${metrics.highestPayingMonth}',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              'Amount: \$${metrics.highestMonthlyAmount.toStringAsFixed(2)}',
-                              style: Theme.of(context).textTheme.titleMedium,
+                            const Divider(height: 24),
+                            ListTile(
+                              leading: Icon(Icons.calendar_month,
+                                  color: Theme.of(context).primaryColor),
+                              title: Text('Highest Paying Month'),
+                              subtitle: Text(
+                                '${metrics.highestPayingMonth} - \$${metrics.highestMonthlyAmount.toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    MonthlyDividendsChart(
-                      monthlyDividends: metrics.monthlyDividends,
+                    const SizedBox(height: 24),
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: MonthlyDividendsChart(
+                          monthlyDividends: metrics.monthlyDividends,
+                        ),
+                      ),
                     ),
                   ],
                 ),
