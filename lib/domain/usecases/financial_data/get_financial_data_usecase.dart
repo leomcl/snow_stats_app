@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import '../../repositories/financial_repository.dart';
+import '../../repositories/stock_data_repository.dart';
 import '../../failures/failures.dart';
 import '../../../data/models/financial_data.dart';
 
 class GetFinancialDataUseCase {
-  final FinancialRepository repository;
+  final StockDataRepository repository;
 
   GetFinancialDataUseCase(this.repository);
 

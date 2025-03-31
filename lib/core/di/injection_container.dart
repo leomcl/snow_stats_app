@@ -13,13 +13,11 @@ import '../../presentation/blocs/dividends/dividends_bloc.dart';
 import '../../presentation/blocs/financial/financial_bloc.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import '../../domain/repositories/dividend_repository.dart';
-import '../../data/repositories/dividend_repository_impl.dart';
+import '../../domain/repositories/stock_data_repository.dart';
+import '../../data/repositories/stock_data_repository_impl.dart';
 import '../../domain/usecases/dividend_data/get_previous_year_dividends.dart';
 import '../../domain/usecases/dividend_data/calculate_dividend_metrics_usecase.dart';
 import '../../domain/usecases/financial_data/get_financial_data_usecase.dart';
-import '../../domain/repositories/financial_repository.dart';
-import '../../data/repositories/financial_repository_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -28,12 +26,10 @@ Future<void> init() async {
   sl.registerLazySingleton(() => http.Client());
 
   // Repositories
-  sl.registerLazySingleton<DividendRepository>(
-    () => DividendRepositoryImpl(client: sl()),
+  sl.registerLazySingleton<StockDataRepository>(
+    () => StockDataRepositoryImpl(client: sl()),
   );
-  sl.registerLazySingleton<FinancialRepository>(
-    () => FinancialRepositoryImpl(client: sl()),
-  );
+
 
   // Data sources
   sl.registerLazySingleton<StockRemoteDataSource>(

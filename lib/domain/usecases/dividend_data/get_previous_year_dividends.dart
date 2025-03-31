@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import '../../repositories/dividend_repository.dart';
+import '../../repositories/stock_data_repository.dart';
 import '../../failures/failures.dart';
 import '../../../data/models/dividend_response.dart';
 
 class GetPreviousYearDividends {
-  final DividendRepository repository;
+  final StockDataRepository repository;
 
   GetPreviousYearDividends(this.repository);
 
