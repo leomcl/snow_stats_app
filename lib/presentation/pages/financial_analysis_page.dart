@@ -20,7 +20,7 @@ class _FinancialAnalysisPageState extends State<FinancialAnalysisPage> {
   // Filter options
   String _selectedPeriod = 'All';
   String _selectedTag = 'All';
-  List<String> _periodOptions = ['All', 'Annual', 'Q1', 'Q2', 'Q3', 'Q4'];
+  final List<String> _periodOptions = ['All', 'Annual', 'Q1', 'Q2', 'Q3', 'Q4'];
   List<String> _availableTags = ['All'];
 
   @override
