@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dividend_page.dart';
+import 'financial_analysis_page.dart';
 import '../blocs/auth/auth_bloc.dart';
 import 'login_page.dart';
 import '../widgets/stock_list_widget.dart';
@@ -19,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   final _sharesController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   int _selectedIndex = 0;
-  
 
   @override
   void initState() {
@@ -45,12 +45,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedIndex = index;
     });
-    
+
     if (index == 1) {
       final stockState = context.read<StockBloc>().state;
       final dividendsBloc = context.read<DividendsBloc>();
-      
-      if (stockState is StockLoaded && 
+
+      if (stockState is StockLoaded &&
           dividendsBloc.lastProcessedStockCount != stockState.stocks.length) {
         dividendsBloc.add(
           CalculateMetrics(stockState.stocks),
@@ -118,6 +118,8 @@ class _HomePageState extends State<HomePage> {
         );
       case 1:
         return const DividendPage();
+      case 2:
+        return const FinancialAnalysisPage();
       default:
         return const Center(child: Text('Page not found'));
     }
@@ -151,6 +153,10 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.attach_money),
             label: 'Dividends',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart),
+            label: 'Financial',
+          ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -164,4 +170,4 @@ class _HomePageState extends State<HomePage> {
     _sharesController.dispose();
     super.dispose();
   }
-} 
+}

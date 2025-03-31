@@ -12,33 +12,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../presentation/blocs/stock/stock_bloc.dart';
 import '../../presentation/blocs/dividends/dividends_bloc.dart';
+import '../../presentation/blocs/financial/financial_bloc.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import '../../domain/repositories/dividend_repository.dart';
 import '../../data/repositories/dividend_repository_impl.dart';
 import '../../domain/usecases/dividend_data/get_previous_year_dividends.dart';
 import '../../domain/usecases/dividend_data/calculate_dividend_metrics_usecase.dart';
+import '../../domain/usecases/financial_data/get_financial_data_usecase.dart';
+import '../../domain/repositories/financial_repository.dart';
+import '../../data/repositories/financial_repository_impl.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Blocs
-  sl.registerFactory(() => AuthBloc());
-  sl.registerFactory(
-    () => DividendsBloc(
-      getPreviousYearDividends: sl(),
-      calculateMetricsUseCase: sl(),
-    ),
-  );
-
-  // Use cases
-  sl.registerLazySingleton(() => GetPreviousYearDividends(sl()));
-  sl.registerLazySingleton(() => CalculateDividendMetricsUseCase(sl()));
+  // External
+  sl.registerLazySingleton(() => http.Client());
 
   // Repositories
   sl.registerLazySingleton<MessageRepository>(() => MessageRepositoryImpl());
   sl.registerLazySingleton<DividendRepository>(
     () => DividendRepositoryImpl(client: sl()),
+  );
+  sl.registerLazySingleton<FinancialRepository>(
+    () => FinancialRepositoryImpl(client: sl()),
   );
 
   // Data sources
@@ -55,8 +52,18 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetStocksUseCase(sl()));
   sl.registerLazySingleton(() => AddStockUseCase(sl()));
   sl.registerLazySingleton(() => DeleteStockUseCase(sl()));
+  sl.registerLazySingleton(() => GetPreviousYearDividends(sl()));
+  sl.registerLazySingleton(() => CalculateDividendMetricsUseCase(sl()));
+  sl.registerLazySingleton(() => GetFinancialDataUseCase(sl()));
 
   // Blocs
+  sl.registerFactory(() => AuthBloc());
+  sl.registerFactory(
+    () => DividendsBloc(
+      getPreviousYearDividends: sl(),
+      calculateMetricsUseCase: sl(),
+    ),
+  );
   sl.registerFactory(
     () => StockBloc(
       getStocksUseCase: sl(),
@@ -64,7 +71,9 @@ Future<void> init() async {
       deleteStockUseCase: sl(),
     ),
   );
-
-  // External
-  sl.registerLazySingleton(() => http.Client());
-} 
+  sl.registerFactory(
+    () => FinancialBloc(
+      getFinancialDataUseCase: sl(),
+    ),
+  );
+}

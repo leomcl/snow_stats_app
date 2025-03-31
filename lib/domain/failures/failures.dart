@@ -13,4 +13,4 @@ class NetworkFailure extends Failure {
 
 class CalculationFailure extends Failure {
   const CalculationFailure(String message) : super(message);
-} 
+}

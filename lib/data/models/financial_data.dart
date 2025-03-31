@@ -1,4 +1,3 @@
-
 class FinancialData {
   final String ticker;
   final int year;

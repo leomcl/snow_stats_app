@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_core/firebase_core.dart'; 
+import 'package:firebase_core/firebase_core.dart';
 import 'core/di/injection_container.dart' as di;
 import 'presentation/pages/home_page.dart';
 import 'presentation/blocs/auth/auth_bloc.dart';
 import 'firebase_options.dart';
 import 'presentation/blocs/stock/stock_bloc.dart';
 import 'presentation/blocs/dividends/dividends_bloc.dart';
+import 'presentation/blocs/financial/financial_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
+
   await di.init();
   runApp(const MyApp());
 }
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<DividendsBloc>(
           create: (context) => di.sl<DividendsBloc>(),
+        ),
+        BlocProvider<FinancialBloc>(
+          create: (context) => di.sl<FinancialBloc>(),
         ),
       ],
       child: MaterialApp(
