@@ -2,14 +2,12 @@ import 'package:get_it/get_it.dart';
 import '../../data/repositories/message_repository_impl.dart';
 import '../../data/repositories/stock_repository_impl.dart';
 import '../../domain/repositories/message_repository.dart';
-import '../../domain/usecases/get_message_usecase.dart';
-import '../../presentation/blocs/message/message_bloc.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../data/datasources/remote/stock_remote_data_source.dart';
 import '../../domain/repositories/stock_repository.dart';
-import '../../domain/usecases/get_stocks_usecase.dart';
-import '../../domain/usecases/add_stock_usecase.dart';
-import '../../domain/usecases/delete_stock_usecase.dart';
+import '../../domain/usecases/manage_user_stocks/get_stocks_usecase.dart';
+import '../../domain/usecases/manage_user_stocks/add_stock_usecase.dart';
+import '../../domain/usecases/manage_user_stocks/delete_stock_usecase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../presentation/blocs/stock/stock_bloc.dart';
@@ -25,7 +23,6 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // Blocs
-  sl.registerFactory(() => MessageBloc(sl()));
   sl.registerFactory(() => AuthBloc());
   sl.registerFactory(
     () => DividendsBloc(
@@ -35,7 +32,6 @@ Future<void> init() async {
   );
 
   // Use cases
-  sl.registerLazySingleton(() => GetMessageUseCase(sl()));
   sl.registerLazySingleton(() => GetPreviousYearDividends(sl()));
   sl.registerLazySingleton(() => CalculateDividendMetricsUseCase(sl()));
 
