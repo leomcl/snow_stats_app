@@ -4,7 +4,7 @@ A Flutter application for tracking stock portfolio, dividends, and financial ana
 
 ## Financial Analysis Feature
 
-The Financial Analysis feature allows users to view detailed financial data for stocks. The feature currently displays raw financial data from the API, including:
+The Financial Analysis feature allows users to view detailed financial data for stocks. The feature displays raw financial data from the API, including:
 
 - Revenue
 - Net Income
@@ -24,6 +24,14 @@ The Financial Analysis feature allows users to view detailed financial data for 
 2. Enter a valid stock ticker (e.g., AAPL)
 3. Enter a year to retrieve data for
 4. Click "Get Data" to fetch and display the financial information
+
+### Filtering Options
+
+The Financial Analysis page includes powerful filtering capabilities:
+
+- **Filing Period Filter**: Filter data by quarterly (Q1, Q2, Q3, Q4) or annual filings
+- **Tag Filter**: View data for specific accounting tags/metrics
+- All filters can be combined to drill down into specific data points
 
 ### Technical Implementation
 
