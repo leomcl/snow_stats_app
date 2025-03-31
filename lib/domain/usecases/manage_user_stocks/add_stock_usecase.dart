@@ -1,5 +1,5 @@
-import '../repositories/stock_repository.dart';
-import '../entities/stock.dart';
+import '../../repositories/stock_repository.dart';
+import '../../entities/stock.dart';
 
 class AddStockUseCase {
   final StockRepository repository;

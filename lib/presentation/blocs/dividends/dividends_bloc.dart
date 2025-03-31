@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../domain/usecases/get_previous_year_dividends.dart';
+import '../../../domain/usecases/dividend_data/get_previous_year_dividends.dart';
 import '../../../data/models/dividend_response.dart';
-import '../../../domain/usecases/calculate_dividend_metrics_usecase.dart';
+import '../../../domain/usecases/dividend_data/calculate_dividend_metrics_usecase.dart';
 import '../../../domain/models/dividend_metrics.dart';
 import '../../../domain/entities/stock.dart';
 

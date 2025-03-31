@@ -1,4 +1,4 @@
-import '../repositories/stock_repository.dart';
+import '../../repositories/stock_repository.dart';
 
 class DeleteStockUseCase {
   final StockRepository repository;

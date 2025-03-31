@@ -16,8 +16,8 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import '../../domain/repositories/dividend_repository.dart';
 import '../../data/repositories/dividend_repository_impl.dart';
-import '../../domain/usecases/get_previous_year_dividends.dart';
-import '../../domain/usecases/calculate_dividend_metrics_usecase.dart';
+import '../../domain/usecases/dividend_data/get_previous_year_dividends.dart';
+import '../../domain/usecases/dividend_data/calculate_dividend_metrics_usecase.dart';
 
 final sl = GetIt.instance;
 

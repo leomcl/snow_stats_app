@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../failures/failures.dart';
-import '../models/dividend_metrics.dart';
-import '../repositories/dividend_repository.dart';
+import '../../failures/failures.dart';
+import '../../models/dividend_metrics.dart';
+import '../../repositories/dividend_repository.dart';
 
 class CalculateDividendMetricsUseCase {
   final DividendRepository repository;

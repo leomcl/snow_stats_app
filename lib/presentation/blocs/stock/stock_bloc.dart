@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import '../../../domain/entities/stock.dart';
-import '../../../domain/usecases/get_stocks_usecase.dart';
-import '../../../domain/usecases/add_stock_usecase.dart';
-import '../../../domain/usecases/delete_stock_usecase.dart';
+import '../../../domain/usecases/manage_user_stocks/get_stocks_usecase.dart';
+import '../../../domain/usecases/manage_user_stocks/add_stock_usecase.dart';
+import '../../../domain/usecases/manage_user_stocks/delete_stock_usecase.dart';
 
 part 'stock_event.dart';
 part 'stock_state.dart';
