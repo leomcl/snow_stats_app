@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import '../../data/repositories/stock_repository_impl.dart';
-import '../../domain/repositories/message_repository.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../data/datasources/remote/stock_remote_data_source.dart';
 import '../../domain/repositories/stock_repository.dart';
