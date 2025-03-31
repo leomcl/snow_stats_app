@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/stock/stock_bloc.dart';
+import '../pages/stock_financial_summary_page.dart';
 
 class StockListWidget extends StatelessWidget {
   const StockListWidget({super.key});
@@ -45,6 +46,16 @@ class StockListWidget extends StatelessWidget {
                           );
                     },
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StockFinancialSummaryPage(
+                          stock: stock,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               );
             },
@@ -55,4 +66,4 @@ class StockListWidget extends StatelessWidget {
       },
     );
   }
-} 
+}
