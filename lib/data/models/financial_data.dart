@@ -33,6 +33,7 @@ class FinancialMetrics {
   final List<FinancialMetric> debt;
   final List<FinancialMetric> shareholderEquity;
   final List<FinancialMetric> dividendsPerShare;
+  final List<FinancialMetric> earningsPerShare;
 
   FinancialMetrics({
     required this.revenue,
@@ -46,6 +47,7 @@ class FinancialMetrics {
     required this.debt,
     required this.shareholderEquity,
     required this.dividendsPerShare,
+    required this.earningsPerShare,
   });
 
   factory FinancialMetrics.fromJson(Map<String, dynamic> json) {
@@ -81,6 +83,9 @@ class FinancialMetrics {
           .map((e) => FinancialMetric.fromJson(e as Map<String, dynamic>))
           .toList(),
       dividendsPerShare: (json['DividendsPerShare'] as List)
+          .map((e) => FinancialMetric.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      earningsPerShare: (json['EarningsPerShare'] as List)
           .map((e) => FinancialMetric.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
