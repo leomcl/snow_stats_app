@@ -8,6 +8,8 @@ import 'firebase_options.dart';
 import 'presentation/blocs/stock/stock_bloc.dart';
 import 'presentation/blocs/dividends/dividends_bloc.dart';
 import 'presentation/blocs/financial/financial_bloc.dart';
+import 'presentation/blocs/stock_price/stock_price_bloc.dart';
+import 'presentation/blocs/stock_sum/stock_sum_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +41,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<FinancialBloc>(
           create: (context) => di.sl<FinancialBloc>(),
+        ),
+        BlocProvider<StockPriceBloc>(
+          create: (context) => di.sl<StockPriceBloc>(),
+        ),
+        BlocProvider<StockSumBloc>(
+          create: (context) => di.sl<StockSumBloc>(),
         ),
       ],
       child: MaterialApp(

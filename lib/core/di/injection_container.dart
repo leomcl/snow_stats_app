@@ -11,6 +11,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../presentation/blocs/stock/stock_bloc.dart';
 import '../../presentation/blocs/dividends/dividends_bloc.dart';
 import '../../presentation/blocs/financial/financial_bloc.dart';
+import '../../presentation/blocs/stock_price/stock_price_bloc.dart';
+import '../../presentation/blocs/stock_sum/stock_sum_bloc.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import '../../domain/repositories/stock_data_repository.dart';
@@ -18,6 +20,8 @@ import '../../data/repositories/stock_data_repository_impl.dart';
 import '../../domain/usecases/dividend_data/get_previous_year_dividends.dart';
 import '../../domain/usecases/dividend_data/calculate_dividend_metrics_usecase.dart';
 import '../../domain/usecases/financial_data/get_financial_data_usecase.dart';
+import '../../domain/usecases/financial_data/get_stock_price_data_usecase.dart';
+import '../../domain/usecases/stock_sum/get_stock_sum_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -29,7 +33,6 @@ Future<void> init() async {
   sl.registerLazySingleton<StockDataRepository>(
     () => StockDataRepositoryImpl(client: sl()),
   );
-
 
   // Data sources
   sl.registerLazySingleton<StockRemoteDataSource>(
@@ -48,6 +51,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetPreviousYearDividends(sl()));
   sl.registerLazySingleton(() => CalculateDividendMetricsUseCase(sl()));
   sl.registerLazySingleton(() => GetFinancialDataUseCase(sl()));
+  sl.registerLazySingleton(() => GetStockPriceDataUsecase(sl()));
+  sl.registerLazySingleton(() => GetStockSumUseCase(
+        financialDataUseCase: sl(),
+        priceDataUseCase: sl(),
+      ));
 
   // Blocs
   sl.registerFactory(() => AuthBloc());
@@ -67,6 +75,16 @@ Future<void> init() async {
   sl.registerFactory(
     () => FinancialBloc(
       getFinancialDataUseCase: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => StockPriceBloc(
+      getStockPriceDataUsecase: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => StockSumBloc(
+      getStockSumUseCase: sl(),
     ),
   );
 }
