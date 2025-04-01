@@ -5,7 +5,7 @@ import '../../domain/repositories/stock_data_repository.dart';
 import '../../domain/failures/failures.dart';
 import '../models/financial_data.dart';
 import '../models/dividend_response.dart';
-
+import '../models/price_response.dart';
 
 class StockDataRepositoryImpl implements StockDataRepository {
   final http.Client client;
@@ -62,7 +62,24 @@ class StockDataRepositoryImpl implements StockDataRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, PriceResponse>> getPrices(List<String> symbols) async {
+    try {
+      final response = await client.get(
+        Uri.parse('$baseUrl/price/${symbols.join(',')}'),
+      );
 
-
-
+      if (response.statusCode == 200) {
+        return Right(
+          PriceResponse.fromJson(json.decode(response.body)),
+        );
+      } else {
+        return Left(
+          ServerFailure('Server error: ${response.statusCode}'),
+        );
+      }
+    } catch (e) {
+      return Left(NetworkFailure(e.toString()));
+    }
+  }
 }
